@@ -1,0 +1,178 @@
+@import "reset.scss";
+
+$moSize : 720px;
+@function vw($value, $device:'pc'){
+    $default-size :  if($device == 'pc', 1920, 720);
+    $vw-context: ($default-size * .01) * 1px;
+    @return calc($value/$vw-context) * 1vw;
+}
+body::after{
+	/* 
+        bg img preload
+    */
+    position:absolute; 
+    width:0; 
+    height:0; 
+    overflow:hidden; 
+    z-index:-1;
+    
+    content:url(@/assets/pc_splite_1.png) url(@/assets/pc_splite_2.png) url(@/assets/pc_splite_3.png) url(@/assets/pc_splite_4.png)  url(@/assets/pc_splite_5.png)  url(@/assets/pc_splite_6.png)  url(@/assets/pc_splite_7.png)  url(@/assets/pc_splite_8.png)  url(@/assets/pc_splite_9.png)  url(@/assets/pc_splite_10.png) url(@/assets/pc_splite_11.png) url(@/assets/mo_splite_1.png) url(@/assets/mo_splite_2.png) url(@/assets/mo_splite_3.png) url(@/assets/mo_splite_4.png)  url(@/assets/mo_splite_5.png)  url(@/assets/mo_splite_6.png)  url(@/assets/mo_splite_7.png)  url(@/assets/mo_splite_8.png)  url(@/assets/mo_splite_9.png)  url(@/assets/mo_splite_10.png) url(@/assets/mo_splite_11.png);
+}
+.visual{
+    position: relative;
+    width:vw(1920px);
+    height:vw(980px);
+    background: #0039ff;
+    &.down{
+        transition: background-color 5s cubic-bezier(0.33, 1, 0.68, 1);
+        .text_area{
+            .title1, .title2{
+                transition: opacity 1s 1s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1s 1s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .btn{
+                transition: opacity 1s 1s cubic-bezier(0.16, 1, 0.3, 1),;
+            }
+        }
+    }
+    &.up{
+        transition: background-color 3s cubic-bezier(0.33, 1, 0.68, 1);
+        .text_area{
+            .title1, .title2{
+                transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .btn{
+                transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),;
+            }
+        }
+    }
+    &.fixed{
+        position: fixed;
+        left:0;
+        top:0;
+        z-index: 100;
+    }
+    &.phase2{
+        background-color: #8400ff;
+        .title1{opacity: 0;}
+        .title2{
+            transform: translate(-50%, calc(-50%));
+            opacity: 1;
+        }
+        .btn{
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    .sequence{
+        position: absolute;
+        left:0;top:0;
+        width:100%;height:100%;
+        background-image: url('@/assets/pc_splite_1.png');
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover;
+        transition: background-image 0.2s ease;
+        pointer-events: none;
+        z-index:2;
+    }
+
+    .text_area{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left:0;top:0;
+        width:100%;height:100%;
+        z-index:3;
+        .title1{
+            position: absolute;
+            left:vw(550px);
+            top:vw(314px);
+            img,source{
+                width:vw(907px);
+            }
+        }
+        .title2{
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%, calc(-50% - 20px));
+            opacity: 0;
+            img,source{
+                width:vw(1167px);
+            }
+        }
+        .btn{
+            position: absolute;
+            left:vw(550px);
+            bottom:vw(218px);    
+            img, source{
+                width:vw(280px);
+                transition:none;
+            }
+        }
+    }
+
+    &.fixed{
+        position: fixed;
+        left:0;
+        top:0;
+        z-index: 100;
+    }
+    &.phase2{
+        background-color: #8400ff;
+        .title1{opacity: 0;}
+        .title2{
+            transform: translate(-50%, calc(-50%));
+            opacity: 1;
+        }
+        .btn{
+            opacity: 0;
+            pointer-events: none;
+        }
+
+    }
+
+    @media (max-width:720px){
+        width:vw(720px, 'mo');
+        height:vw(1440px, 'mo');
+        .text_area{
+            .title1{
+                left:vw(78px, 'mo');
+                top:vw(610px, 'mo');
+                img,source{
+                    width:vw(566px, 'mo');
+                }
+                
+            }
+            .title2{
+                $top : vw(90px,'mo');
+                transform: translate(-50%, calc(-50% + $top));
+                img,source{
+                    width:vw(556px, 'mo');
+                }
+            }
+            .btn{
+                left:vw(158px, 'mo');
+                bottom:auto;
+                top:vw(814px, 'mo');    
+                img, source{
+                    width:vw(405px, 'mo');
+                }
+            }
+        }
+    }
+    .console{
+        position: fixed;
+        left:0;
+        top:100px;
+        width:150px;
+        height:150px;
+        background: gray;
+        z-index:100000;
+    }
+
+}
